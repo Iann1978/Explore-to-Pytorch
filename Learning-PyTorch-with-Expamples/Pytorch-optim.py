@@ -14,7 +14,7 @@ model = torch.nn.Sequential(
 loss_fn = torch.nn.MSELoss(reduction='sum')
 
 learning_rate = 1e-3
-optimizer = torch.optim.RMSprop(model.parameters(),learning_rate)
+optimizer = torch.optim.RMSprop(model.parameters(), learning_rate)
 for t in range(2000):
 
     y_pred = model(xx)
