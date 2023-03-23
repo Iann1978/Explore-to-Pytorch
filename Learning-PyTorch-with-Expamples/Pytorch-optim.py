@@ -11,7 +11,7 @@ model = torch.nn.Sequential(
     torch.nn.Linear(3, 1),
     torch.nn.Flatten(0, 1)
 )
-loss_fn = torch.nn.MSELoss(reduction='sum')
+loss_fn  = torch.nn.MSELoss(reduction='sum')
 
 learning_rate = 1e-3
 optimizer = torch.optim.RMSprop(model.parameters(), learning_rate)
