@@ -47,7 +47,7 @@ vgg16 = nn.Sequential(
     nn.Dropout(),
     nn.ReLU(inplace=True),
 
-    nn.Linear(4096, 10),
+    nn.Linear(4096, 1000),
 
 
 )
