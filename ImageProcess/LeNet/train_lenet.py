@@ -2,6 +2,13 @@
 # https://zhuanlan.zhihu.com/p/116181964
 
 print('This is demo for training LeNet!!! ')
+import sys
+
+# appending the parent directory path
+sys.path.append('../Common')
+
+print(sys.path)
+
 
 import torch
 import torch.nn as nn
@@ -10,9 +17,8 @@ import  torchvision
 import model
 from torch.utils.tensorboard import SummaryWriter
 from dataset import get_dataset
-from trainer import train_one_epoch
-from trainer import test_one_epoch
 from debuger import show_some_pred
+from trainer import ClassifyTaskTrainer
 
 
 device = "cuda"
@@ -50,14 +56,12 @@ writer.close()
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(net.parameters(), lr=1e-1, weight_decay=0.001)
 
-
-
-test_one_epoch(net, test_loader, device)
-show_some_pred(net, test_dataset, device)
+net.name = "lenet5"
+trainer = ClassifyTaskTrainer(net, test_loader, loss_fn, optimizer, device)
+trainer.valuate_one_epoch(0)
 for e in range(epochs):
-    train_one_epoch(net, train_loader, loss_fn, optimizer, device, e+1)
-    test_one_epoch(net, test_loader, device, e+1)
-    # show_some_pred(net, test_dataset)
+    trainer.train_one_epoch(e+1)
+    trainer.valuate_one_epoch(e+1)
 
 
 
